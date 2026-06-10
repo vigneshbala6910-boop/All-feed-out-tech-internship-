@@ -1,0 +1,24 @@
+import json
+import urllib.request
+
+def fetch_users():
+    url = "https://jsonplaceholder.typicode.com/users"
+
+    try:
+        with urllib.request.urlopen(url, timeout=10) as response:
+            data = response.read()
+            users = json.loads(data)
+
+            print("✅ API Data Fetched Successfully\n")
+
+            for user in users:
+                print("Name :", user.get("name", "N/A"))
+                print("Email:", user.get("email", "N/A"))
+                print("City :", user.get("address", {}).get("city", "N/A"))
+                print("-" * 35)
+
+    except Exception as e:
+        print("❌ Error:", e)
+
+if __name__ == "__main__":
+    fetch_users()
